@@ -1,0 +1,29 @@
+{
+  "name": "monorepo-boilerplate",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "0.0.0",
+  "repository": "git@github.com:dzintars/monorepo-boilerplate.git",
+  "author": "Dzintars Klavins <dzintars.klavins@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "lerna run build",
+    "lint": "eslint . --ext .ts",
+    "clean": "lerna clean && lerna run clean"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-eslint-plugin": "^2.2.1",
+    "eslint-plugin-import": "^2.20.0",
+    "hygen": "^5.0.3",
+    "lerna": "^3.20.2",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.4"
+  }
+}

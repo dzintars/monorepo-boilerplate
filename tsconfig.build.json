@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ESNext", "dom", "dom.iterable"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@my-sandbox/ui-*": ["./*/src"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "pretty": true
+  }
+}
