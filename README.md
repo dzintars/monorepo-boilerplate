@@ -18,6 +18,7 @@
    1. [TypeScript](#typescript)
    1. [Husky](#husky)
    1. [Lint-Staged](#lintstaged)
+   1. [Commitlint](#commitlint)
    1. [Markdown](#markdown)
 3. [Another paragraph](#paragraph2)
 
@@ -518,6 +519,19 @@ Husky config could be added right into root `package.json` file, but i prefer to
 ### Setup Lint-Staged <a name="lintstaged"></a>
 
 Lint-staged allows you to lint staged files (only those which has some changes).
+
+### Commitlint <a name="commitlint"></a>
+
+Commitlint helps to tidy your commit messages to look more professional and to enable some nice side effects like automatic changelog generation.
+
+[Documentation](https://commitlint.js.org/#/)
+
+```sh
+yarn add -D -W @commitlint/cli @commitlint/config-conventional
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > .commitlintrc.js
+```
+
+In `.huskyrc.js` file `hooks` section add new hook action `"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"`.
 
 ### Markdown <a name="markdown"></a>
 
