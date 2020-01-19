@@ -518,20 +518,48 @@ Husky config could be added right into root `package.json` file, but i prefer to
 
 ### Setup Lint-Staged <a name="lintstaged"></a>
 
-Lint-staged allows you to lint staged files (only those which has some changes).
+Lint-staged allows you to lint staged files (only those which has some changes). This means that all your committed files will be linted and/or prettified no matter what. You Git commit history will look nice and tidy. Even if you will make some changes outside of VS Code.
 
 ### Commitlint <a name="commitlint"></a>
 
 Commitlint helps to tidy your commit messages to look more professional and to enable some nice side effects like automatic changelog generation.
 
-[Documentation](https://commitlint.js.org/#/)
+[Commitlint Documentation](https://commitlint.js.org/#/)
+
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ```sh
-yarn add -D -W @commitlint/cli @commitlint/config-conventional
+yarn add -D -W @commitlint/{cli,config-conventional}
 echo "module.exports = {extends: ['@commitlint/config-conventional']}" > .commitlintrc.js
 ```
 
-In `.huskyrc.js` file `hooks` section add new hook action `"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"`.
+In `.huskyrc.js` file `hooks` section add new hook action `"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"`. So, `commit-msg` git hook will call an `commitlint` and will pass `-E HUSKY_GIT_PARAMS` argument to it. Then it will validate commit message accordingly to `config-conventional` commitlint plugin rules.
+
+You can apply some rules by your self as well. For example in your `.commitlintrc.js` file you can add new property:
+
+```js
+rules: {
+    'header-case': [2, 'always', 'lower-case'],
+    'scope-case': [2, 'always', 'lower-case'],
+    'subject-case': [2, 'always', 'lower-case'],
+  },
+```
+
+As you already see, every commit message consists of 3 parts and you can apply some rules to every of those parts.
+A legend of commit message looks like this: `git commit -m "header(scope): subject"` For example, some messages could look like this: `git commit -m "chore(config): add typescript linting"`.
+
+You can pre-define your own scopes as well to limit what scopes can be used in commit messages.
+
+Example:
+
+```js
+module.exports = {
+  extends: ['angular'],
+  rules: {
+    'scope-enum': [2, 'always', ['server', 'client']],
+  },
+};
+```
 
 ### Markdown <a name="markdown"></a>
 
