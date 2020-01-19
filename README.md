@@ -508,9 +508,16 @@ There is one important rule, that if new `.tsconfig.json` file is found in some 
 
 ### Setup Husky & Commitlint <a name="husky"></a>
 
+Husky allows you to connect/listen [Git Hooks](https://githooks.com/)
+Most commonly used hook is `pre-commit` hook which allows you to do some stuff before your changes got committed into Git.
+
+Husky most commonly is used along with `lint-staged`.
+
+Husky config could be added right into root `package.json` file, but i prefer to save configs in separate files.
+
 ### Setup Lint-Staged <a name="lintstaged"></a>
 
-This is a sub paragraph, formatted in heading 3 style
+Lint-staged allows you to lint staged files (only those which has some changes).
 
 ### Markdown <a name="markdown"></a>
 

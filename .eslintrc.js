@@ -31,7 +31,7 @@ module.exports = {
     'import/no-self-import': 'off',
     'import/no-cycle': 'off',
     '@typescript-eslint/no-unused-vars': [
-      'warn',
+      'error',
       {
         argsIgnorePattern: '^_',
       },
