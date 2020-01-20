@@ -1,26 +1,32 @@
 # Monorepo Boilerplate
 
+This repository is my attempt to set up and document design system monorepository setup.
+
 ## Table of contents
 
 1. [Introduction](#introduction)
 2. [Setup](#setup)
-   1. [Spell Check](#spellcheck)
    1. [SSH](#ssh)
-   1. [Node](#node)
+   1. [Git](#git)
+   1. [NodeJS](#nodejs)
+   1. [NPM](#npm)
    1. [VS Code](#vscode)
-   1. [Editorconfig](#editorconfig)
+   1. [EditorConfig](#editorconfig)
    1. [Yarn](#yarn)
    1. [Lerna](#lerna)
    1. [Hygen](#hygen)
-   1. [Sample code](#samples)
    1. [ESLint](#eslint)
    1. [Prettier](#prettier)
    1. [TypeScript](#typescript)
+   1. [WebPack](#webpack)
    1. [Husky](#husky)
    1. [Commitlint](#commitlint)
    1. [Lint-Staged](#lintstaged)
+   1. [Storybook](#storybook)
+   1. [Netlify](#netlify)
    1. [Markdown](#markdown)
-3. [Another paragraph](#paragraph2)
+   1. [Spell Check](#spellcheck)
+3. [Usage](#usage)
 
 ## Introduction <a name="introduction"></a>
 
@@ -42,21 +48,6 @@ Then spec removed HTML Imports. And then LitElement library was released. Pretty
 ## Installation <a name="setup"></a>
 
 The first paragraph text
-
-### Setup Spell Checker <a name="spellcheck"></a>
-
-After creating this empty repository i started with writing this README.md markdown file and so the first thing i started to care about was Spell Check.
-English is not my native language, so some help from spell checking software is really welcome to me.
-
-So installed VS Code extension called [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-
-```sh
-code --install-extension streetsidesoftware.code-spell-checker
-```
-
-After extension is installed you can create `.cspell.json` configuration file in your project root directory.
-This file contains all the spelling configurations and most important to me - ignored words.
-All misspelled words will be marked with blue squiggly underline. Hover it and see the issue or use Quick Fix to add that word to your dictionary. Dictionary will be populated in 2 places - 1) In global VS Code `settings.json` and 2) In this local `.cspell.json` file. In general, you can move this file from project to project if you will. Just modify configs accordingly.
 
 ### SSH <a name="ssh"></a>
 
@@ -124,9 +115,18 @@ I will not go deep into the details, but.. Yes.. that is possible and you can ma
 
 In my experience, multiple usernames are not bad and can be used, but recently i reorganized my repositories and accounts to look more organized. Basically i migrated all my sandbox projects to one of my accounts and converted other accounts into organizations. I still can maintain my private projects in my main @dzintars account and all other projects i can distribute across organization accounts. Works pretty well. REMEMBER - Organizations can't have GitHub private repositories for free.
 
-### Install Node <a name="node"></a>
+### NodeJS <a name="nodejs"></a>
 
 I think, if you already are interested in TypeScript Monorepo setup, then for sure you already know what is NodeJS and why it is required there. I just listed it there for completeness.
+
+### NPM <a name="npm"></a>
+
+It is nice if you can do things like `import '@library/my-component` or `import { LitElement } from 'lit-element'`. In order to do so across all your projects without much pain you need to publish your component package in some package registry. Most popular registry these days is [NPM](https://www.npmjs.com/). So you need to have account there. I would recommend to use NPM Organizations to scope your packages. This way you will be able to install your packages like `yarn add @my-organization/my-component`. From my experience, using your personal account is not a good idea.
+
+You can also use [GitHubs package registry](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-npm-for-use-with-github-packages) and i will try to look into that later.
+
+But remember one important thing. You can't delete your packages from Npmjs.com after 72h of publishing package. Because someone in theory already could rely on your package and by deleting you can broke someones build pipelines. To delete package you should email to Npmjs.com support.
+To play with package publishing i personally created test organization.
 
 ### Install VS Code & Extensions <a name="vscode"></a>
 
@@ -160,7 +160,7 @@ Populate this file with:
   "editor.formatOnPaste": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
-    "editor.tabSize": 2,
+    // "editor.tabSize": 2, // Potentially overlaps with Ediorconfig extension
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       // Leaving this setting there for reference. Disabled because Prettier is used for formating.
@@ -168,7 +168,7 @@ Populate this file with:
     }
   },
   "[typescript]": {
-    "editor.tabSize": 2,
+    // "editor.tabSize": 2, // Potentially overlaps with Ediorconfig extension
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": false
@@ -205,6 +205,14 @@ quote_type = single
 EOT
 ```
 
+> Potential conflicts with VS Code settings. [Source](https://developercommunity.visualstudio.com/content/problem/46983/conflict-between-vs2017-text-editor-indentation-se.html)
+
+I didn't dug deeper, but it's bit confusing how does VS Code settings play with Editorconfig, because there is some overlapping configs like `tab_width = 2` and `"[typescript]": {"editor.tabSize": 2}`. So i removed some properties from `.vscode/settings.json`.
+
+##### Resources
+
+[What is EditorConfig?](https://editorconfig.org/)
+
 #### Extensions
 
 Create new config file in `.vscode/` directory with content:
@@ -222,28 +230,31 @@ EOT
 This file says about recommended and not recommended VS Code extensions. So everybody, who will clone this repository will get an notifications about recommended extensions to be installed in their VS Code IDE.
 So every time you add some significant extension to work with your project it is good idea to add it in this file so that consumers of your repository potentially could get similar DX (Developer Experience).
 
-### Install Yarn <a name="yarn"></a>
+### Yarn <a name="yarn"></a>
 
 I am writing this at 2020/JAN and at this point [Yarn](https://yarnpkg.com/lang/en/) is pretty much the only option to create monorepo as it has a concept called `workspaces` which we will use. And it's bit faster because of module caching. NPM team are not ok to give up their user base for Yarn :) , so in [their blog](https://blog.npmjs.org/post/186983646370/npm-cli-roadmap-summer-2019) they announced some work to enable workspaces and other features, but we don't know how long we should wait for that. So we will use Yarn for now.
 
 From now you should not use `npm` command in your terminal. `yarn add -D package-name` will install local (project level) package and `-D` will add it to your `devDependencies`. `yarn global add package-name` will install package globally on your system. Most likely TypeScript is such package.
 
 Run `yarn init -y`. It will generate `package.json` file with all the default values in it. Clear the content. Or you can create `package.json` by `touch packages.json`.
+
 Add this content to that file:
 
-```json
+```sh
+cat <<EOT >> packages.json
 }
   "name": "@my-sandbox/root",
   "workspaces": [
     "packages/*"
   ]
 }
+EOT
 ```
 
 Because this is our repository root, this is not an NPM package and we will never publish it. Instead we will publish packages from `./packages/*` directory which we will create at next steps. You can name this package whatever you want. Name of it does not interact with NPM or GotHub or.. whatever. I am using my NPM organization name there.
 Field `"workspaces"` relates to Yarn configuration, so you can read about that in Yarn documentation.
 
-### Install & configure Lerna <a name="lerna"></a>
+### Lerna <a name="lerna"></a>
 
 Lerna is best friend of the Yarn when we talk about monorepositories.
 
@@ -260,7 +271,9 @@ Run `lerna init` now. It will create `lerna.json` config file.
 
 Modify your `package.json` file to look like
 
-```json
+```sh
+> package.json
+cat <<EOT >> package.json
 }
   "name": "@my-sandbox/root",
   "private": true,
@@ -268,13 +281,15 @@ Modify your `package.json` file to look like
     "packages/*"
   ]
 }
+EOT
 ```
 
 Property `"private": true,` says to Lerna, that this is an private package and we will not ever publish it to NPM when we will run `lerna publish`. Instead, Lerna will go into `packages/*` directory and treat every sub-directory as separate package and will execute `publish` on every package it will find there.
 
 Modify `lerna.json` config file to look like:
 
-```json
+```sh
+cat <<EOT >> lerna.json
 {
   "packages": ["packages/*"],
   "ignoreChanges": ["packages/*/test/**", "**/*.md"],
@@ -282,6 +297,7 @@ Modify `lerna.json` config file to look like:
   "useWorkspaces": true,
   "version": "independent"
 }
+EOT
 ```
 
 Important property there is an `version` property which is set to `independent`. This means that every time we will run `lerna publish` or `lerna version` versions of our packages will be bumped independently. Lerna will check in what packages changes was made and will bump a version only for those packages. If we would not specify this property, then all packages would get same version number when we make some changes only in one package. You should pay attention to this aspect because there could be caveats if using independent versioning when packages rely each on other. MAKE RESEARCH.
@@ -325,9 +341,7 @@ This will build default generator. You can red on Hygen documentation how to gen
 
 If you execute `hygen package create` and enter component name you want to generate, Hygen will generate component directory and install all baseline dependencies for you.
 
-### Make 2 packages with sample TypeScript code <a name="samples"></a>
-
-### Setup ESLint <a name="eslint"></a>
+### ESLint <a name="eslint"></a>
 
 Linting probably is one of the most confusing parts. At least for me. If you dig thru wild wild web you will se names like `JSLint`, `JSHint`, `TSLint`, `ESLint` and probably some other. Quite confusing what should you use, right?
 In short, you should use `ESLint`. `TSLint` was used by TypeScript team to lint TS source, but now it is kinda deprecated and TypeScript team is migrating to ESLint because of its speed and architecture. `JSLint` was built by Douglas Crockford and was highly opinionated with no options to customize it. Similarly can be said about `JSHint`. Just stick with `ESLint` at least for few next years.
@@ -388,7 +402,7 @@ You can see what linter gives you an error or warning by hovering over issue and
 For example `ts(1219)` indicates that this is error issues by TypeScript's `tsc` server.
 `eslint(import/prefer-default-export)` indicates that error is issued by `ESLint` and it is `eslint-plugin-import` plugins rule named `prefer-default-export` which has been triggered. So all you need to do is go to your `.eslintrc.js` and turn that rule off if you will or fix your source code accordingly.
 
-#### Encountered errors
+#### Errors encountered
 
 `eslint(import/no-unresolved)`
 [SO](https://stackoverflow.com/a/42498220/6651080)
@@ -404,7 +418,7 @@ yarn add -D -W eslint-plugin-import @typescript-eslint/parser eslint-import-reso
 
 So basically i removed airbnb plugin to rely only on "vanilla" setup.
 
-### Setup Prettier <a name="prettier"></a>
+### Prettier <a name="prettier"></a>
 
 Prettier is helpful tool to prettify (format) you source code. It does not fix your syntax errors, but it can replace tabs with spaces, or double quotes with single quotes etc., etc.
 [Prettier vs. Linters](https://prettier.io/docs/en/comparison.html)
@@ -453,7 +467,7 @@ module.exports = {
 EOT
 ```
 
-### Setup TypeScript <a name="typescript"></a>
+### TypeScript <a name="typescript"></a>
 
 These days i would say TypeScript is way to go. Projects we produce become more and more complex, sometimes they got Open Source Community attention, sometimes they get popular and you need to grow your team. Or you simply work in large company. I will not list all the benefits TypeScript brings on the table. I think out there are plenty of talks and resources to read and watch.
 
@@ -507,7 +521,9 @@ Next, create same files in your package root. Like `touch ./packages/my-componen
 
 There is one important rule, that if new `.tsconfig.json` file is found in some sub-directory, it does not automatically extends root level `.tsconfig.json`, instead new rule set will be applied downstream of that config file. If you want, you should explicitly extend root level configuration.
 
-### Setup Husky & Commitlint <a name="husky"></a>
+### WebPack <a name="webpack"></a>
+
+### Setup Husky <a name="husky"></a>
 
 Husky allows you to connect/listen [Git Hooks](https://githooks.com/)
 Most commonly used hook is `pre-commit` hook which allows you to do some stuff before your changes got committed into Git.
@@ -519,10 +535,6 @@ Husky config could be added right into root `package.json` file, but i prefer to
 ### Commitlint <a name="commitlint"></a>
 
 Commitlint helps to tidy your commit messages to look more professional and to enable some nice side effects like automatic changelog generation.
-
-[Commitlint Documentation](https://commitlint.js.org/#/)
-
-[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ```sh
 yarn add -D -W @commitlint/{cli,config-conventional}
@@ -552,10 +564,16 @@ Example:
 module.exports = {
   extends: ['angular'],
   rules: {
-    'scope-enum': [2, 'always', ['server', 'client']],
+    'scope-enum': [2, 'always', ['config', 'docs', 'my-component']],
   },
-};
+}
 ```
+
+#### Resources
+
+[Commitlint Documentation](https://commitlint.js.org/#/)
+[Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/)
+[The perks of committing with conventions](https://slides.com/marionebl/the-perks-of-committing-with-conventions#/27)
 
 ### Setup Lint-Staged <a name="lintstaged"></a>
 
@@ -569,6 +587,21 @@ To get markdown file linting currently i am using `davidanson.vscode-markdownlin
 code --install-extension davidanson.vscode-markdownlint
 ```
 
-## Another paragraph <a name="paragraph2"></a>
+### Setup Spell Checker <a name="spellcheck"></a>
+
+After creating this empty repository i started with writing this README.md markdown file and so the first thing i started to care about was Spell Check.
+English is not my native language, so some help from spell checking software is really welcome to me.
+
+So installed VS Code extension called [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
+```sh
+code --install-extension streetsidesoftware.code-spell-checker
+```
+
+After extension is installed you can create `.cspell.json` configuration file in your project root directory.
+This file contains all the spelling configurations and most important to me - ignored words.
+All misspelled words will be marked with blue squiggly underline. Hover it and see the issue or use Quick Fix to add that word to your dictionary. Dictionary will be populated in 2 places - 1) In global VS Code `settings.json` and 2) In this local `.cspell.json` file. In general, you can move this file from project to project if you will. Just modify configs accordingly.
+
+## Usage <a name="usage"></a>
 
 The second paragraph text

@@ -7,11 +7,11 @@ to: packages/<%= tag %>/package.json
   "description": "Testing NPM publishing",
   "version": "0.0.0",
   "author": "Dzintars Klavins <dzintars.dev@gmail.com> (https://dzintars.dev)",
-  "homepage": "https://github.com/dzintars/monorepo/tree/master/packages/<%= tag %>#readme",
+  "homepage": "https://github.com/dzintars/monorepo-bootstrap/tree/master/packages/<%= tag %>#readme",
   "license": "MIT",
-  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "keywords": [
     "web component",
@@ -30,12 +30,10 @@ to: packages/<%= tag %>/package.json
     "url": "https://github.com/dzintars/monorepo-bootstrap/issues",
     "email": "dzintars.dev@gmail.com"
   },
-  "directories": {
-    "lib": "dist",
-    "test": "__tests__"
-  },
   "files": [
-    "dist"
+    "custom-elements.json",
+    "/dist/",
+    "/src/"
   ],
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
@@ -43,11 +41,5 @@ to: packages/<%= tag %>/package.json
     "format": "prettier --write \"./**/*.{ts,js,json,md}\" --ignore-path ../../.prettierignore",
     "lint": "eslint . --ext .js,.ts --ignore-path ../../.eslintignore",
     "typecheck": "tsc -p tsconfig.json --noEmit"
-  },
-  "dependencies": {
-
-  },
-  "devDependencies":{
-
   }
 }

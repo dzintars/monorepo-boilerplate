@@ -1,9 +1,7 @@
 
-import {html} from 'lit-element';
-import {UiPill} from './ui-pill';
+import { html, TemplateResult } from 'lit-element';
+import { UiPill } from './ui-pill';
 
-export default function template(this: UiPill) {
-  return html`
-
-  `;
+export default function template(this: UiPill): TemplateResult {
+  return html``;
 }

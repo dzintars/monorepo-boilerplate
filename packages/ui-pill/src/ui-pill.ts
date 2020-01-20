@@ -1,6 +1,6 @@
-import { LitElement, customElement, property, CSSResultArray, CSSResult, TemplateResult } from 'lit-element';
-import style from './style';
-import template from './template';
+import { LitElement, customElement, TemplateResult } from 'lit-element';
+import style from "./style";
+import template from "./template";
 
 declare global {
   interface HTMLElementTagNameMap {

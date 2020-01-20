@@ -8,12 +8,17 @@
     "declarationMap": true,
     "sourceMap": true,
     "experimentalDecorators": true,
+    "inlineSources": true,
     "strict": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
     "baseUrl": "./packages",
     "paths": {
       "@my-sandbox/ui-*": ["./*/src"]
     },
     "allowSyntheticDefaultImports": true,
     "pretty": true
-  }
+  },
+  "include": ["./global.d.ts", "./packages/*/src/**/*.ts"]
 }

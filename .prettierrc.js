@@ -7,4 +7,5 @@ module.exports = {
   useTabs: false,
   tabWidth: 2,
   printWidth: 160,
+  htmlWhitespaceSensitivity: 'ignore',
 };

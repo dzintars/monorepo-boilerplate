@@ -1,6 +1,5 @@
 node_modules
 **/dist
-**/coverage
 **/.vscode
 
 # Ignore CHANGELOG.md files to avoid issues with automated release job

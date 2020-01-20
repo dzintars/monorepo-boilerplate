@@ -1,21 +1,15 @@
----
-to: packages/<%= tag %>/src/<%= tag %>.ts
----
-<%
-  className = h.changeCase.pascal(tag)
--%>
 import { LitElement, customElement, TemplateResult } from 'lit-element';
 import style from "./style";
 import template from "./template";
 
 declare global {
   interface HTMLElementTagNameMap {
-    '<%= tag %>': <%= className %>;
+    'ui-icon': UiIcon;
   }
 }
 
-@customElement('<%= tag %>')
-export class <%= className %> extends LitElement {
+@customElement('ui-icon')
+export class UiIcon extends LitElement {
   public static styles = [style];
   // public static get styles(): CSSResultArray {
   //   return [

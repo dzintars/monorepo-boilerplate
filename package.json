@@ -4,14 +4,11 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.0",
-  "repository": "git@github.com:dzintars/monorepo-boilerplate.git",
-  "author": "Dzintars Klavins <dzintars.klavins@gmail.com>",
-  "license": "MIT",
   "scripts": {
     "build": "lerna run build",
     "lint": "eslint . --ext .ts",
-    "clean": "lerna clean && lerna run clean"
+    "clean": "lerna clean && lerna run clean",
+    "generate:package": "hygen package create"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
