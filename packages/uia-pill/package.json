@@ -2,7 +2,7 @@
   "private": false,
   "name": "@my-sandbox/uia-pill",
   "description": "Testing NPM publishing",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Dzintars Klavins <dzintars.dev@gmail.com> (https://dzintars.dev)",
   "homepage": "https://github.com/dzintars/monorepo-bootstrap/tree/master/packages/uia-pill#readme",
   "license": "MIT",
