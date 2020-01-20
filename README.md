@@ -8,7 +8,7 @@
    1. [SSH](#ssh)
    1. [Node](#node)
    1. [VS Code](#vscode)
-      1. [Editor Config](#editorconfig)
+   1. [Editorconfig](#editorconfig)
    1. [Yarn](#yarn)
    1. [Lerna](#lerna)
    1. [Hygen](#hygen)
@@ -17,8 +17,8 @@
    1. [Prettier](#prettier)
    1. [TypeScript](#typescript)
    1. [Husky](#husky)
-   1. [Lint-Staged](#lintstaged)
    1. [Commitlint](#commitlint)
+   1. [Lint-Staged](#lintstaged)
    1. [Markdown](#markdown)
 3. [Another paragraph](#paragraph2)
 
@@ -516,10 +516,6 @@ Husky most commonly is used along with `lint-staged`.
 
 Husky config could be added right into root `package.json` file, but i prefer to save configs in separate files.
 
-### Setup Lint-Staged <a name="lintstaged"></a>
-
-Lint-staged allows you to lint staged files (only those which has some changes). This means that all your committed files will be linted and/or prettified no matter what. You Git commit history will look nice and tidy. Even if you will make some changes outside of VS Code.
-
 ### Commitlint <a name="commitlint"></a>
 
 Commitlint helps to tidy your commit messages to look more professional and to enable some nice side effects like automatic changelog generation.
@@ -560,6 +556,10 @@ module.exports = {
   },
 };
 ```
+
+### Setup Lint-Staged <a name="lintstaged"></a>
+
+Lint-staged allows you to lint staged files (only those which has some changes). This means that all your committed files will be linted and/or prettified no matter what. You Git commit history will look nice and tidy. Even if you will make some changes outside of VS Code.
 
 ### Markdown <a name="markdown"></a>
 

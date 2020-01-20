@@ -19,7 +19,6 @@ export class UiPill extends LitElement {
   // }
 
   protected render(): TemplateResult {
-    console.log('Test');
     return template.call(this);
   }
 }
