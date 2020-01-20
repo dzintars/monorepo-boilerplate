@@ -4,12 +4,12 @@ import template from "./template";
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ui-pill': UiPill;
+    'uia-icon': UiaIcon;
   }
 }
 
-@customElement('ui-pill')
-export class UiPill extends LitElement {
+@customElement('uia-icon')
+export class UiaIcon extends LitElement {
   public static styles = [style];
   // public static get styles(): CSSResultArray {
   //   return [

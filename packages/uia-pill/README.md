@@ -1,4 +1,4 @@
-# ui-pill
+# uia-pill
 
 This is Typescript, ESLint, Prettier, Lerna, Yarn and Lit-Element test component.
 Intention is to test deveopment workflow.

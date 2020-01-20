@@ -8,6 +8,7 @@
     "build": "lerna run build",
     "lint": "eslint . --ext .ts",
     "clean": "lerna clean && lerna run clean",
+    "pub": "lerna publish",
     "generate:package": "hygen package create"
   },
   "devDependencies": {
