@@ -34,7 +34,7 @@ Some introduction text, formatted in heading 2 style
 
 ### Motivation
 
-As a newbie developer i found that is is pretty easy to learn programming itself, but it is hard to learn project setup and management good practices. Like... think of Redux. In every single tutorial they are showing to put Actions, Reducers, etc. each in dedicated directory called `actions` and so on. You end up with single directory full with hundreds of files for each domain you are working on. Nobody at that point is talking about something like [Redux Ducks](https://github.com/erikras/ducks-modular-redux) which in my case brings in much more clarity for the project.
+As a newbie developer i found that is is pretty easy to learn programming itself, but it is hard to learn project setup and management good practices. Like... think of Redux. In every single tutorial they are showing to put Actions, Reducers, etc. each in dedicated directory called `actions` and so on. You end up with single directory full with hundreds of files for each domain you are working on. Nobody at that point is talking about something like [Redux Ducks](https://github.com/erikras/ducks-modular-redux) or [Re-Ducks](https://github.com/alexnm/re-ducks) which in my case brings in much more clarity for the project.
 The same applies to UI.
 An other hard part for me was that headache when i seen those example projects in GitHub with gazillion of mysterious dot files. When i was learning JavaScript, they told me that JavasCript is like the easiest language in the world and it is easy to use. Just make `index.html` place your `<script></script>` tag in and you are done! But then is seen those `.eslintrc.js`, `.prettierrc.js`, famous `package.json` and i was thinking - what the hell is happening there! Can i please write a simple javascript? Yes, you can... but soon i realized, that my single javascript file becomes a long list of gibberish. So i started to split them and my `<script></script>` tags started to stack up in my `index.html`. At that point i told... [so... JavaScript. Fuck You!](https://youtu.be/_36yNWw_07g?t=10) and become a introverted hater of JavaScript. And i went into Golang world. Felt in love. Single binary. Run everywhere. No PHP configuration nightmares. No Java class naming nightmare. BEST [community](https://invite.slack.golangbridge.org/) EVER!!!
 Bla, bla, bla... landed into Go Templates.. one page, another.. but.. somewhat i wanted that SPA'ish feeling for my users. Moreover because i wanted to use WebSockets and have some real-time thingies.
@@ -183,6 +183,10 @@ Populate this file with:
   "cSpell.words": ["ROADMAP", "bigint", "npmignore", "Hygen", "lintstaged"]
 }
 ```
+
+#### Bounties
+
+`CTRL + ,` opens your VS Code settings.
 
 #### EditorConfig
 
@@ -407,7 +411,7 @@ It turns out that i should add special section into `lerna.json` config file;
       "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
       "message": "chore(release): publish"
     }
-  },
+  }
 }
 ```
 
@@ -415,7 +419,7 @@ Important part is `publish` section. We are telling to lerna to use conventional
 
 ### Hygen <a name="hygen"></a>
 
-Hygen is code a generator. Because I don't like default output of the `lerna create` and its inflexibility, we will use Hygen for package boilerplate generation.
+Hygen is code a generator. Because I don't like default output of the `lerna create` and its inflexibility, we will use Hygen for package boilerplate generation. It will save us some time for package base directory and file creation.
 
 Install hygen globally by `yarn global add hygen`. Probably you will see a warning like `warning "hygen > ts-jest@24.3.0" has unmet peer dependency "jest@>=24 <25".`. It is not a good practice to ignore an warnings, but in this case it is safe to ignore it.
 try to run `hygen` in your terminal.
@@ -429,7 +433,7 @@ I think, at this point you can add hygen as `devDependency` as well, because we 
 
 ```sh
 yarn add -D -W hygen
-````
+```
 
 Run `hygen init self`
 

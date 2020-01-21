@@ -1,7 +1,6 @@
 ---
 to: packages/<%= tag %>/src/style.ts
 ---
-
 import {css} from 'lit-element';
 
 export default css`

@@ -1,11 +1,10 @@
-
-import {css} from 'lit-element';
+import { css } from 'lit-element';
 
 export default css`
   :host([hidden]) {
     display: none;
   }
   :host {
-      display: block;
+    display: block;
   }
 `;
