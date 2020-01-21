@@ -317,6 +317,102 @@ Sometimes during project setup you can get some weird `yarn add xxxxx` errors an
 
 Now you can run simple `yarn run clean` command from projects root directory and Lerna will take care about deleting all `node_modules`.
 
+#### Errors encountered
+
+While trying to run `lerna publish` i constantly got an error like below and was not able to figure out whats wrong.
+
+```sh
+yarn run pub
+yarn run v1.21.1
+$ lerna publish
+lerna notice cli v3.20.2
+lerna info versioning independent
+lerna WARN Yarn's registry proxy is broken, replacing with public npm registry
+lerna WARN If you don't have an npm token, you should exit and run `npm login`
+lerna info Assuming all packages changed
+? Select a new version for @my-sandbox/uia-icon (currently 0.0.1) Patch (0.0.2)
+? Select a new version for @my-sandbox/uia-pill (currently 0.0.1) Patch (0.0.2)
+
+Changes:
+ - @my-sandbox/uia-icon: 0.0.1 => 0.0.2
+ - @my-sandbox/uia-pill: 0.0.1 => 0.0.2
+
+? Are you sure you want to publish these packages? Yes
+lerna info execute Skipping releases
+lerna ERR! Error: Command failed: git commit -F /tmp/dc85b579-dcef-421d-ad7e-1d8c511452d5/lerna-commit.txt
+lerna ERR! husky > pre-commit (node v12.13.1)
+lerna ERR! Preparing... [started]
+lerna ERR! Preparing... [completed]
+lerna ERR! Running tasks... [started]
+lerna ERR! Running tasks for *.{ts,js,json} [started]
+lerna ERR! eslint [started]
+lerna ERR! eslint [completed]
+lerna ERR! Running tasks for *.{ts,js,json} [completed]
+lerna ERR! Running tasks... [completed]
+lerna ERR! Applying modifications... [started]
+lerna ERR! Applying modifications... [completed]
+lerna ERR! Cleaning up... [started]
+lerna ERR! Cleaning up... [completed]
+lerna ERR! husky > commit-msg (node v12.13.1)
+lerna ERR! ⧗   input: Publish
+lerna ERR!
+lerna ERR!  - @my-sandbox/uia-icon@0.0.2
+lerna ERR!  - @my-sandbox/uia-pill@0.0.2
+lerna ERR! ✖   subject may not be empty [subject-empty]
+lerna ERR! ✖   type may not be empty [type-empty]
+lerna ERR! ✖   header must be lower-case [header-case]
+lerna ERR!
+lerna ERR! ✖   found 3 problems, 0 warnings
+lerna ERR! ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+lerna ERR!
+lerna ERR! husky > commit-msg hook failed (add --no-verify to bypass)
+lerna ERR!
+lerna ERR!     at makeError (/home/dzintars/Code/github.com/dzintars/monorepo-boilerplate/node_modules/execa/index.js:174:9)
+lerna ERR!     at /home/dzintars/Code/github.com/dzintars/monorepo-boilerplate/node_modules/execa/index.js:278:16
+lerna ERR!     at processTicksAndRejections (internal/process/task_queues.js:93:5)
+lerna ERR! Error: Command failed: git commit -F /tmp/dc85b579-dcef-421d-ad7e-1d8c511452d5/lerna-commit.txt
+lerna ERR! husky > pre-commit (node v12.13.1)
+lerna ERR! Preparing... [started]
+lerna ERR! Preparing... [completed]
+lerna ERR! Running tasks... [started]
+lerna ERR! Running tasks for *.{ts,js,json} [started]
+lerna ERR! eslint [started]
+lerna ERR! eslint [completed]
+lerna ERR! Running tasks for *.{ts,js,json} [completed]
+lerna ERR! Running tasks... [completed]
+lerna ERR! Applying modifications... [started]
+lerna ERR! Applying modifications... [completed]
+lerna ERR! Cleaning up... [started]
+lerna ERR! Cleaning up... [completed]
+lerna ERR! husky > commit-msg (node v12.13.1)
+lerna ERR! ⧗   input: Publish
+lerna ERR!
+lerna ERR!  - @my-sandbox/uia-icon@0.0.2
+lerna ERR!  - @my-sandbox/uia-pill@0.0.2
+lerna ERR! ✖   subject may not be empty [subject-empty]
+lerna ERR! ✖   type may not be empty [type-empty]
+lerna ERR! ✖   header must be lower-case [header-case]
+```
+
+It turns out that i should add special section into `lerna.json` config file;
+
+```json
+{
+  "command": {
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
+      "message": "chore(release): publish"
+    }
+  },
+}
+```
+
+Important part is `publish` section. We are telling to lerna to use conventional commits and passing commit message according to our commitlint ruler.
+
 ### Hygen <a name="hygen"></a>
 
 Hygen is code a generator. Because I don't like default output of the `lerna create` and its inflexibility, we will use Hygen for package boilerplate generation.
@@ -333,7 +429,7 @@ I think, at this point you can add hygen as `devDependency` as well, because we 
 
 ```sh
 yarn add -D -W hygen
-```
+````
 
 Run `hygen init self`
 
@@ -566,7 +662,7 @@ module.exports = {
   rules: {
     'scope-enum': [2, 'always', ['config', 'docs', 'my-component']],
   },
-}
+};
 ```
 
 #### Resources
