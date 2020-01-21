@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/dzintars/monorepo-bootstrap/compare/@my-sandbox/uia-pill@0.0.4...@my-sandbox/uia-pill@0.0.5) (2020-01-21)
+
+
+### Bug Fixes
+
+* **uia-pill:** add test content ([111d0c1](https://github.com/dzintars/monorepo-bootstrap/commit/111d0c1654190bf00a0f8c750a6990c259b394a4))
+
+
+
+
+
 ## [0.0.4](https://github.com/dzintars/monorepo-bootstrap/compare/@my-sandbox/uia-pill@0.0.3...@my-sandbox/uia-pill@0.0.4) (2020-01-21)
 
 
