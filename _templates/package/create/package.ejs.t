@@ -7,7 +7,7 @@ to: packages/<%= tag %>/package.json
   "description": "Testing NPM publishing",
   "version": "0.0.0",
   "author": "Dzintars Klavins <dzintars.dev@gmail.com> (https://dzintars.dev)",
-  "homepage": "https://github.com/dzintars/monorepo-bootstrap/tree/master/packages/<%= tag %>#readme",
+  "homepage": "https://github.com/dzintars/monorepo-boilerplate/tree/master/packages/<%= tag %>#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -23,11 +23,11 @@ to: packages/<%= tag %>/package.json
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dzintars/monorepo-bootstrap.git",
+    "url": "git+https://github.com/dzintars/monorepo-boilerplate.git",
     "directory": "packages/<%= tag %>"
   },
   "bugs": {
-    "url": "https://github.com/dzintars/monorepo-bootstrap/issues",
+    "url": "https://github.com/dzintars/monorepo-boilerplate/issues",
     "email": "dzintars.dev@gmail.com"
   },
   "files": [

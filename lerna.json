@@ -4,5 +4,15 @@
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "command": {
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
+      "message": "chore(release): publish"
+    }
+  },
   "stream": true
 }
