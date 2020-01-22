@@ -1,6 +1,7 @@
-import { LitElement, customElement, TemplateResult } from 'lit-element';
+import { LitElement, customElement, property, TemplateResult } from 'lit-element';
 import style from './style';
 import template from './template';
+import { Pill, Styling } from './models';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -17,6 +18,18 @@ export class UiaPill extends LitElement {
   //     Style
   //   ];
   // }
+
+  @property({ type: Object })
+  public pill: Pill = {
+    text: '',
+  };
+
+  @property({ type: Object })
+  public styling: Styling = {
+    height: '1rem',
+    background: '#006AFF',
+    color: '#FFFFFF',
+  };
 
   protected render(): TemplateResult {
     console.log('Test');

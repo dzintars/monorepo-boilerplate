@@ -4,7 +4,6 @@ to: packages/<%= tag %>/src/template.ts
 <%
   className = h.changeCase.pascal(tag)
 -%>
-
 import { html, TemplateResult } from 'lit-element';
 import { <%= className %> } from './<%= tag %>';
 

@@ -1,4 +1,3 @@
-
 import { html, TemplateResult } from 'lit-element';
 import { UiaIcon } from './uia-icon';
 

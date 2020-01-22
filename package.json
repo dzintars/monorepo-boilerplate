@@ -9,7 +9,9 @@
     "lint": "eslint . --ext .ts",
     "clean": "lerna clean && lerna run clean",
     "pub": "lerna publish",
-    "generate:package": "hygen package create"
+    "generate:package": "hygen package create",
+    "storybook": "start-storybook --node-resolve --watch --open",
+    "storybook:build": "build-storybook"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -27,6 +29,7 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.0",
     "prettier": "^1.19.1",
+    "storybook": "^5.3.7",
     "typescript": "^3.7.4"
   }
 }
