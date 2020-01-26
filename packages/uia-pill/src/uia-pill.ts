@@ -1,4 +1,9 @@
-import { LitElement, customElement, property, TemplateResult } from 'lit-element';
+import {
+  LitElement,
+  customElement,
+  property,
+  TemplateResult,
+} from 'lit-element';
 import style from './style';
 import template from './template';
 import { Pill, Styling } from './models';
@@ -32,7 +37,6 @@ export class UiaPill extends LitElement {
   };
 
   protected render(): TemplateResult {
-    console.log('Test');
     return template.call(this);
   }
 }
